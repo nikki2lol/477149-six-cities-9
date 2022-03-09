@@ -6,9 +6,10 @@ import Favorites from '../pages/favorites/favorites';
 import NotFoundScreen from '../pages/no-found-screen/not-found-screen';
 import Property from '../pages/property/property';
 import PrivateRoute from '../private-route/private-route';
+import {MOCK_OFFERS} from '../../mocks/offers';
 
 type AppScreenProps = {
-  placesCount: number;
+  placesCount?: number;
 }
 
 function App({placesCount = 300} : AppScreenProps): JSX.Element {
@@ -18,7 +19,12 @@ function App({placesCount = 300} : AppScreenProps): JSX.Element {
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<Main placesCount={placesCount}/>}
+          element={
+            <Main
+              placesCount={placesCount}
+              offers={MOCK_OFFERS}
+            />
+          }
         />
         <Route
           path={AppRoute.Login}
@@ -36,7 +42,11 @@ function App({placesCount = 300} : AppScreenProps): JSX.Element {
         />
         <Route
           path={AppRoute.Favorites}
-          element={<Favorites/>}
+          element={
+            <Favorites
+              offers={MOCK_OFFERS}
+            />
+          }
         />
         <Route
           path={AppRoute.Room}
