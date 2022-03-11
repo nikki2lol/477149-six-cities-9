@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../../header/header';
-import {Offers} from '../../../types/offers';
+import {Offers} from '../../../types/types';
 import OffersList from '../../offers-list/offers-list';
 
 type FavProps = {
