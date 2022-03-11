@@ -1,5 +1,5 @@
 import React from 'react';
-import {Offer} from '../../types/offers';
+import {Offer} from '../../types/types';
 import {AppRoute, RATING_STEP} from '../../const';
 import {Link} from 'react-router-dom';
 

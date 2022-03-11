@@ -1,3 +1,20 @@
+export type City = {
+  title: string;
+  lat: number;
+  lng: number;
+  zoom: number;
+};
+
+export type Offers = Offer[];
+
+export type Point = {
+  title: string;
+  lat: number;
+  lng: number;
+};
+
+export type Points = Point[];
+
 export type Offer = {
   id: number
   isFavorite: boolean
@@ -8,7 +25,6 @@ export type Offer = {
   rating: number
   title: string
   type: string
-  images?: [string]
   city?: {
     location: {
       latitude: number
@@ -16,7 +32,13 @@ export type Offer = {
       zoom: number
     }
     name: string
+  },
+  location: {
+    latitude: number
+    longitude: number
+    zoom: number
   }
+  images?: [string]
   description?: string
   goods?: [string]
   host?: {
@@ -25,11 +47,5 @@ export type Offer = {
     isPro: boolean
     name: string
   }
-  location?: {
-    latitude: number
-    longitude: number
-    zoom: number
-  }
 }
 
-export type Offers = Offer[];

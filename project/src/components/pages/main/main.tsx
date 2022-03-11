@@ -1,14 +1,21 @@
-import React from 'react';
-import {Offers} from '../../../types/offers';
+import React, {useState} from 'react';
+import {City, Offers, Point, Points} from '../../../types/types';
 import Header from '../../header/header';
 import OffersList from '../../offers-list/offers-list';
+import Map from '../../map/map';
 
 type MainProps = {
   placesCount: number;
-  offers: Offers
+  offers: Offers;
+  city: City;
+  points: Points;
 }
 
-function Main ({placesCount, offers} : MainProps): JSX.Element {
+function Main ({placesCount, offers, city, points} : MainProps): JSX.Element {
+  const [selectedPoint] = useState<Point | undefined>(
+    undefined,
+  );
+
   return (
     <div className="page">
       <Header/>
@@ -75,7 +82,9 @@ function Main ({placesCount, offers} : MainProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"/>
+              <section className="cities__map map">
+                <Map city={city} points={points} selectedPoint={selectedPoint}/>
+              </section>
             </div>
           </div>
         </div>

@@ -7,6 +7,8 @@ import NotFoundScreen from '../pages/no-found-screen/not-found-screen';
 import Property from '../pages/property/property';
 import PrivateRoute from '../private-route/private-route';
 import {MOCK_OFFERS} from '../../mocks/offers';
+import {CITY} from '../../mocks/city';
+import {POINTS} from '../../mocks/points';
 
 type AppScreenProps = {
   placesCount?: number;
@@ -23,6 +25,8 @@ function App({placesCount = 300} : AppScreenProps): JSX.Element {
             <Main
               placesCount={placesCount}
               offers={MOCK_OFFERS}
+              city={CITY}
+              points={POINTS}
             />
           }
         />

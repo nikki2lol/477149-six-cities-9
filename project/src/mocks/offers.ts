@@ -1,4 +1,4 @@
-import {Offers} from '../types/offers';
+import {Offers} from '../types/types';
 
 export const MOCK_OFFERS: Offers = [
   {
@@ -11,6 +11,11 @@ export const MOCK_OFFERS: Offers = [
     maxAdults: 2,
     price: 100,
     rating: 2,
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 10,
+    },
   },
   {
     id: 2,
@@ -22,6 +27,11 @@ export const MOCK_OFFERS: Offers = [
     maxAdults: 4,
     price: 120,
     rating: 5,
+    location: {
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
+      zoom: 10,
+    },
   },
   {
     id: 3,
@@ -33,6 +43,11 @@ export const MOCK_OFFERS: Offers = [
     maxAdults: 2,
     price: 99,
     rating: 3,
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 10,
+    },
   },
   {
     id: 4,
@@ -44,5 +59,10 @@ export const MOCK_OFFERS: Offers = [
     maxAdults: 3,
     price: 199,
     rating: 4,
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 10,
+    },
   },
 ];

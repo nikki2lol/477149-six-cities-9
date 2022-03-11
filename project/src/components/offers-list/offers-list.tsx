@@ -1,4 +1,4 @@
-import {Offer} from '../../types/offers';
+import {Offer} from '../../types/types';
 import OfferCard from '../offer-card/offer-card';
 import OfferCardFav from '../offer-card-fav/offer-card-fav';
 
