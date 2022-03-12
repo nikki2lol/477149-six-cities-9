@@ -1,15 +1,15 @@
 import {Offer} from '../../types/types';
 import OfferCard from '../offer-card/offer-card';
-import OfferCardFav from '../offer-card-fav/offer-card-fav';
+import {OfferType} from '../../const';
 
 type OffersListProps = {
   offers: Offer[];
-  isFavList?: boolean;
+  offerListType?: string;
 }
 
-function OffersList ({offers, isFavList}: OffersListProps) {
+function OffersList ({offers, offerListType = OfferType.Main}: OffersListProps) {
   return (
-    <>{offers.map((offer : Offer, index : number)=> isFavList ? <OfferCardFav key={`offer-${index+1}`} {...offer}/> : <OfferCard key={`offer-${index+1}`} {...offer}/>)}</>
+    <>{offers.map((offer : Offer, index : number)=> <OfferCard key={`offer-${index+1}`} offerListType={offerListType} {...offer}/>)}</>
   );
 }
 

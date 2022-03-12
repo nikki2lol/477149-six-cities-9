@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../../header/header';
 import {Offers} from '../../../types/types';
 import OffersList from '../../offers-list/offers-list';
+import {OfferType} from '../../../const';
 
 type FavProps = {
   offers: Offers
@@ -27,7 +28,7 @@ function Favorites ({offers} : FavProps){
                   </div>
                 </div>
                 <div className="favorites__places">
-                  {offers && <OffersList offers={offers} isFavList/>}
+                  {offers && <OffersList offers={offers} offerListType={OfferType.Fav}/>}
                 </div>
               </li>
 
@@ -40,7 +41,7 @@ function Favorites ({offers} : FavProps){
                   </div>
                 </div>
                 <div className="favorites__places">
-                  {offers && <OffersList offers={offers} isFavList/>}
+                  {offers && <OffersList offers={offers} offerListType={OfferType.Fav}/>}
                 </div>
               </li>
             </ul>
