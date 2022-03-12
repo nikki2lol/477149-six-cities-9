@@ -1,20 +1,28 @@
+export type Review = {
+  comment: string
+  date: string
+  id: number
+  rating: number
+  user: {
+    avatarUrl: string
+    id: number
+    isPro: boolean
+    name: string
+  }
+};
+export type Reviews = Review[];
 export type City = {
   title: string;
   lat: number;
   lng: number;
   zoom: number;
 };
-
-export type Offers = Offer[];
-
 export type Point = {
   title: string;
   lat: number;
   lng: number;
 };
-
 export type Points = Point[];
-
 export type Offer = {
   id: number
   isFavorite: boolean
@@ -48,4 +56,5 @@ export type Offer = {
     name: string
   }
 }
+export type Offers = Offer[];
 

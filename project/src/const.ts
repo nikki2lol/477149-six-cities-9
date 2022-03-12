@@ -11,10 +11,14 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const RATING_STEP = 20;
+export enum OfferType {
+  Main = 'cities',
+  Fav = 'favorites',
+  Nearest = 'near-places',
+}
 
+export const RATING_STEP = 20;
 export const URL_MARKER_DEFAULT = '/img/pin.svg';
 export const URL_MARKER_CURRENT = '/img/pin-active.svg';
 export const ICON_WIDTH = 27;
 export const ICON_HEIGHT = 39;
-export const MAP_HEIGHT = 900;
