@@ -17,7 +17,7 @@ function OffersList ({offers, offerListType = OfferType.City, setActiveOffer}: O
       offerListType === OfferType.Nearest && 'near-places__list',
     )}
     >
-      {offers.map((offer : Offer, index : number)=> <OfferCard key={`offer-${index+1}`}  offerListType={offerListType} setActiveOffer={setActiveOffer} {...offer}/>)}
+      {offers.map((offer : Offer, index : number)=> <OfferCard key={offer.id}  offerListType={offerListType} setActiveOffer={setActiveOffer} {...offer}/>)}
     </div>
   );
 }
