@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import Header from '../../header/header';
+import Header from '../../components/header/header';
 
 function NotFoundScreen(): JSX.Element {
 

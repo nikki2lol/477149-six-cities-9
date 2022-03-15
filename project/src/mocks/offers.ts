@@ -16,6 +16,14 @@ export const OFFERS: Offers = [
       longitude: 4.85309666406198,
       zoom: 10,
     },
+    city: {
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 10,
+      },
+      name: 'Amsterdam',
+    },
   },
   {
     id: 2,
@@ -31,6 +39,14 @@ export const OFFERS: Offers = [
       latitude: 52.369553943508,
       longitude: 4.85309666406198,
       zoom: 10,
+    },
+    city: {
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 10,
+      },
+      name: 'Amsterdam',
     },
   },
   {
@@ -48,6 +64,14 @@ export const OFFERS: Offers = [
       longitude: 4.929309666406198,
       zoom: 10,
     },
+    city: {
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 10,
+      },
+      name: 'Amsterdam',
+    },
   },
   {
     id: 4,
@@ -63,6 +87,14 @@ export const OFFERS: Offers = [
       latitude: 52.3809553943508,
       longitude: 4.939309666406198,
       zoom: 10,
+    },
+    city: {
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 10,
+      },
+      name: 'Amsterdam',
     },
   },
 ];
@@ -83,6 +115,14 @@ export const OFFERS_NEAR: Offers = [
       longitude: 4.85309666406198,
       zoom: 10,
     },
+    city: {
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 10,
+      },
+      name: 'Amsterdam',
+    },
   },
   {
     id: 2,
@@ -99,6 +139,14 @@ export const OFFERS_NEAR: Offers = [
       longitude: 4.85309666406198,
       zoom: 10,
     },
+    city: {
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 10,
+      },
+      name: 'Amsterdam',
+    },
   },
   {
     id: 3,
@@ -114,6 +162,14 @@ export const OFFERS_NEAR: Offers = [
       latitude: 52.3909553943508,
       longitude: 4.929309666406198,
       zoom: 10,
+    },
+    city: {
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 10,
+      },
+      name: 'Amsterdam',
     },
   },
 ];

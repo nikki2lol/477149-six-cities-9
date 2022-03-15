@@ -12,17 +12,14 @@ export type Review = {
 };
 export type Reviews = Review[];
 export type City = {
-  title: string;
-  lat: number;
-  lng: number;
+  location: Location,
+  name: string,
+}
+export type Location = {
+  latitude: number;
+  longitude: number;
   zoom: number;
-};
-export type Point = {
-  title: string;
-  lat: number;
-  lng: number;
-};
-export type Points = Point[];
+}
 export type Offer = {
   id: number
   isFavorite: boolean
@@ -33,19 +30,8 @@ export type Offer = {
   rating: number
   title: string
   type: string
-  city?: {
-    location: {
-      latitude: number
-      longitude: number
-      zoom: number
-    }
-    name: string
-  },
-  location: {
-    latitude: number
-    longitude: number
-    zoom: number
-  }
+  city: City,
+  location: Location,
   images?: [string]
   description?: string
   goods?: [string]
@@ -57,4 +43,6 @@ export type Offer = {
   }
 }
 export type Offers = Offer[];
+export type Point = Pick<Offer, 'id' | 'location'>;
+export type Points = Point[];
 

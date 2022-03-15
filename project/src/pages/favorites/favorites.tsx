@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from '../../header/header';
-import {Offers} from '../../../types/types';
-import OffersList from '../../offers-list/offers-list';
-import {OfferType} from '../../../const';
+import Header from '../../components/header/header';
+import {Offers} from '../../types/types';
+import OffersList from '../../components/offers-list/offers-list';
+import {OfferType} from '../../const';
 
 type FavProps = {
   offers: Offers

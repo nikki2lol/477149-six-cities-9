@@ -12,7 +12,7 @@ export enum AuthorizationStatus {
 }
 
 export enum OfferType {
-  Main = 'cities',
+  City = 'cities',
   Fav = 'favorites',
   Nearest = 'near-places',
 }
@@ -22,3 +22,12 @@ export const URL_MARKER_DEFAULT = '/img/pin.svg';
 export const URL_MARKER_CURRENT = '/img/pin-active.svg';
 export const ICON_WIDTH = 27;
 export const ICON_HEIGHT = 39;
+
+export const CITIES = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+];

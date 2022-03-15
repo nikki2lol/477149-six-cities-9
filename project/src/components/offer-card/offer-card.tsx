@@ -1,23 +1,23 @@
 import React from 'react';
 import {Offer} from '../../types/types';
-import {AppRoute, OfferType, RATING_STEP} from '../../const';
+import {AppRoute, OfferType} from '../../const';
 import {Link} from 'react-router-dom';
+import {calcPercent} from '../../helpers';
 
 type OfferCardProps = Offer & {
   offerListType: string;
+  setActiveOffer?: (value: number | null) => void;
 }
 
-function OfferCard ({previewImage, isFavorite, isPremium, price, title, rating, type, offerListType, ...props}  : OfferCardProps): JSX.Element {
-
-  const calcRating = rating * RATING_STEP;
+function OfferCard ({previewImage, isFavorite, isPremium, price, title, rating, type, offerListType, setActiveOffer, ...props}  : OfferCardProps): JSX.Element {
   const favButtonClasses = isFavorite ?
     'place-card__bookmark-button place-card__bookmark-button--active button' :
     'place-card__bookmark-button button';
-  const placeCardClasses = offerListType === OfferType.Main ?
+  const placeCardClasses = offerListType === OfferType.City ?
     'cities__place-card place-card' :
     `${offerListType}__card place-card`;
 
-  const imageWrapperClasses = offerListType === OfferType.Main ?
+  const imageWrapperClasses = offerListType === OfferType.City ?
     'cities__image-wrapper place-card__image-wrapper' :
     `${offerListType}__image-wrapper place-card__image-wrapper`;
 
@@ -25,9 +25,14 @@ function OfferCard ({previewImage, isFavorite, isPremium, price, title, rating, 
     `${offerListType}__card-info place-card__info` :
     'place-card__info';
 
+  const handleMouseOver = (id: number) => () => {
+    if (setActiveOffer) {
+      setActiveOffer(id);
+    }
+  };
 
   return (
-    <article className={placeCardClasses}>
+    <article className={placeCardClasses} onMouseOver={handleMouseOver(props.id)}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
@@ -52,7 +57,7 @@ function OfferCard ({previewImage, isFavorite, isPremium, price, title, rating, 
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${calcRating}%`}}/>
+            <span style={{width: calcPercent(rating)}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
