@@ -1,52 +1,26 @@
 import React, {useState} from 'react';
-import FormReviews from '../../form-reviews/form-reviews';
-import ReviewsList from '../../reviews-list/reviews-list';
-import {City, Point, Points, Reviews} from '../../../types/types';
-import Map from '../../map/map';
-import OffersList from '../../offers-list/offers-list';
-import {OFFERS_NEAR} from '../../../mocks/offers';
-import {OfferType} from '../../../const';
+import {OfferType} from '../../const';
+import {Offers, Reviews} from '../../types/types';
+import {OFFERS_NEAR} from '../../mocks/offers';
+import FormReviews from '../../components/form-reviews/form-reviews';
+import ReviewsList from '../../components/reviews-list/reviews-list';
+import OffersList from '../../components/offers-list/offers-list';
+import Header from '../../components/header/header';
+import Map from '../../components/map/map';
 
 type PropertyProps = {
+  offers: Offers;
   reviews: Reviews;
-  city: City;
-  points: Points;
 }
 
-function Property ({reviews, city, points}: PropertyProps) {
-  const [selectedPoint] = useState<Point | undefined>(
-    undefined,
-  );
+function Property ({offers, reviews}: PropertyProps) {
+  const [activeOffer, setActiveOffer] = useState<number | null>(null);
+  const points = offers.map(({ id, location }) => ({ id, location }));
+  const cityLocation = offers[0].city.location;
 
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="/img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="/">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="/">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header/>
 
       <main className="page__main page__main--property">
         <section className="property">
@@ -177,14 +151,14 @@ function Property ({reviews, city, points}: PropertyProps) {
             </div>
           </div>
           <section className="property__map map">
-            <Map city={city} points={points} selectedPoint={selectedPoint}/>
+            <Map city={cityLocation} points={points} selectedPoint={activeOffer}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={OFFERS_NEAR} offerListType={OfferType.Nearest}/>
+              <OffersList offers={OFFERS_NEAR} offerListType={OfferType.Nearest} setActiveOffer={setActiveOffer}/>
             </div>
           </section>
         </div>

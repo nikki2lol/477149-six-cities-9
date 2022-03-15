@@ -1,14 +1,14 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
 import useMap from '../../hooks/useMap';
-import {City, Points, Point} from '../../types/types';
+import {Points, Location} from '../../types/types';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, ICON_WIDTH, ICON_HEIGHT} from '../../const';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  city: City;
+  city: Location;
   points: Points;
-  selectedPoint: Point | undefined;
+  selectedPoint: number | null;
 };
 
 const defaultCustomIcon = new Icon({
@@ -33,13 +33,13 @@ function Map(props: MapProps): JSX.Element {
     if (map) {
       points.forEach((point) => {
         const marker = new Marker({
-          lat: point.lat,
-          lng: point.lng,
+          lat: point.location.latitude,
+          lng: point.location.longitude,
         });
 
         marker
           .setIcon(
-            selectedPoint !== undefined && point.title === selectedPoint.title
+            selectedPoint !== undefined && point.id === selectedPoint
               ? currentCustomIcon
               : defaultCustomIcon,
           )

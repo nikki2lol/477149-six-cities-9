@@ -1,9 +1,8 @@
 import React from 'react';
 import {Review} from '../../types/types';
-import {RATING_STEP} from '../../const';
+import {calcPercent} from '../../helpers';
 
 function ReviewsItem ({comment, date, id, rating, user, ...props} : Review) {
-  const calcRating = rating * RATING_STEP;
 
   return (
     <li className="reviews__item">
@@ -16,7 +15,7 @@ function ReviewsItem ({comment, date, id, rating, user, ...props} : Review) {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${calcRating}%`}}/>
+            <span style={{width: calcPercent(rating)}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
