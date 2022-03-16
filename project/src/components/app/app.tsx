@@ -6,18 +6,27 @@ import Favorites from '../../pages/favorites/favorites';
 import NotFoundScreen from '../../pages/no-found-screen/not-found-screen';
 import Property from '../../pages/property/property';
 import PrivateRoute from '../private-route/private-route';
-import {REVIEWS} from '../../mocks/reviews';
 import {useAppSelector} from '../../hooks';
+import {sortOffers} from '../../helpers';
+import LoadingScreen from '../loading-screen/loading-scree';
 
 function App(): JSX.Element {
-  const { city, offers } = useAppSelector((state) => state);
+  const {offers, activeCity, sortingType} = useAppSelector((state) => state);
+  const sortedOffers = sortOffers(offers, activeCity, sortingType);
 
+  const {isDataLoaded} = useAppSelector((state) => state);
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<Main offers={offers} activeCity={city}/>}
+          element={<Main offers={sortedOffers} />}
         />
         <Route
           path={AppRoute.Login}
@@ -35,20 +44,11 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.Favorites}
-          element={
-            <Favorites
-              offers={offers}
-            />
-          }
+          element={<Favorites offers={offers}/>}
         />
         <Route
           path={AppRoute.Room}
-          element={
-            <Property
-              reviews={REVIEWS}
-              offers={offers}
-            />
-          }
+          element={<Property/>}
         />
         <Route
           path='*'

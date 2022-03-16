@@ -1,14 +1,14 @@
 import {useRef, useEffect} from 'react';
 import {Icon, Marker} from 'leaflet';
 import useMap from '../../hooks/useMap';
-import {Points, Location} from '../../types/types';
+import {Offers} from '../../types/types';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT, ICON_WIDTH, ICON_HEIGHT} from '../../const';
 import 'leaflet/dist/leaflet.css';
+import {useAppSelector} from '../../hooks';
 
 type MapProps = {
-  city: Location;
-  points: Points;
-  selectedPoint: number | null;
+  offers: Offers;
+  currentId?: number | null;
 };
 
 const defaultCustomIcon = new Icon({
@@ -23,30 +23,32 @@ const currentCustomIcon = new Icon({
   iconAnchor: [ICON_WIDTH, ICON_HEIGHT],
 });
 
-function Map(props: MapProps): JSX.Element {
-  const {city, points, selectedPoint} = props;
-
+function Map({offers, currentId}: MapProps): JSX.Element {
+  const selectedPin = useAppSelector((state) => state.offerId);
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const cityCenter = offers[0].city;
+  const {location: {latitude: lat, longitude: lng, zoom}} = cityCenter;
+  const map = useMap(mapRef, cityCenter);
 
   useEffect(() => {
     if (map) {
-      points.forEach((point) => {
+      offers.forEach((offer) => {
         const marker = new Marker({
-          lat: point.location.latitude,
-          lng: point.location.longitude,
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,
         });
 
         marker
           .setIcon(
-            selectedPoint !== undefined && point.id === selectedPoint
+            offer.id === currentId || offer.id === selectedPin
               ? currentCustomIcon
               : defaultCustomIcon,
           )
           .addTo(map);
       });
+      map.flyTo([lat, lng], zoom);
     }
-  }, [map, points, selectedPoint]);
+  }, [map, offers, lat, lng, zoom, selectedPin, currentId]);
 
   return <div style={{height: '100%'}} ref={mapRef}/>;
 }

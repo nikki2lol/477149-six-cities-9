@@ -46,3 +46,4 @@ export type Offers = Offer[];
 export type Point = Pick<Offer, 'id' | 'location'>;
 export type Points = Point[];
 
+export type ErrorType = unknown;

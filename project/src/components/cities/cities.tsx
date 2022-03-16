@@ -1,32 +1,26 @@
 import React from 'react';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {setCity} from '../../store/action';
+import {CITIES} from '../../const';
+import clsx from 'clsx';
 
-type CitiesProps = {
-  cities: string[];
-  city: string;
-}
-
-function Cities ({cities, city} : CitiesProps) {
+function Cities () {
+  const { activeCity } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
   function handleClick(cityName: string) {
-    return () => dispatch(setCity(cityName));
+    dispatch(setCity(cityName));
   }
 
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {cities.map((cityName) => {
-          const className = `locations__item-link tabs__item${cityName === city && ' tabs__item--active'}`;
-          return (
-            <li key={cityName} className="locations__item" onClick={handleClick(cityName)}>
-              <a className={className} href={`#${cityName}`}>
-                <span>{cityName}</span>
-              </a>
-            </li>
-          );
-        })}
+        {CITIES.map((cityName) => (
+          <li key={cityName} className="locations__item" onClick={()=>handleClick(cityName)}>
+            <a className={clsx('locations__item-link', 'tabs__item', cityName === activeCity && 'tabs__item--active')} href={`#${cityName}`}>
+              <span>{cityName}</span>
+            </a>
+          </li>))}
       </ul>
     </section>
   );
