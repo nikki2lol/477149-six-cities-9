@@ -9,6 +9,7 @@ type FavProps = {
 }
 
 function Favorites ({offers} : FavProps){
+
   return (
     <div className="page">
 
@@ -28,7 +29,7 @@ function Favorites ({offers} : FavProps){
                   </div>
                 </div>
                 <div className="favorites__places">
-                  {offers && <OffersList offers={offers} offerListType={OfferType.Fav}/>}
+                  <OffersList offers={offers} offerListType={OfferType.Fav}/>
                 </div>
               </li>
 
@@ -41,7 +42,7 @@ function Favorites ({offers} : FavProps){
                   </div>
                 </div>
                 <div className="favorites__places">
-                  {offers && <OffersList offers={offers} offerListType={OfferType.Fav}/>}
+                  <OffersList offers={offers} offerListType={OfferType.Fav}/>
                 </div>
               </li>
             </ul>

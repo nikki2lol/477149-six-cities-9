@@ -1,22 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {OfferType} from '../../const';
-import {Offers, Reviews} from '../../types/types';
-import {OFFERS_NEAR} from '../../mocks/offers';
 import FormReviews from '../../components/form-reviews/form-reviews';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import OffersList from '../../components/offers-list/offers-list';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
+import {useAppSelector} from '../../hooks';
 
-type PropertyProps = {
-  offers: Offers;
-  reviews: Reviews;
-}
 
-function Property ({offers, reviews}: PropertyProps) {
-  const [activeOffer, setActiveOffer] = useState<number | null>(null);
-  const points = offers.map(({ id, location }) => ({ id, location }));
-  const cityLocation = offers[0].city.location;
+function Property () {
+  const {offers} = useAppSelector((state) => state);
 
   return (
     <div className="page">
@@ -144,21 +137,21 @@ function Property ({offers, reviews}: PropertyProps) {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewsList reviews={reviews} />
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{666}</span></h2>
+                <ReviewsList reviews={[]} />
                 <FormReviews/>
               </section>
             </div>
           </div>
           <section className="property__map map">
-            <Map city={cityLocation} points={points} selectedPoint={activeOffer}/>
+            <Map offers={offers}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={OFFERS_NEAR} offerListType={OfferType.Nearest} setActiveOffer={setActiveOffer}/>
+              <OffersList offers={offers} offerListType={OfferType.Nearest}/>
             </div>
           </section>
         </div>

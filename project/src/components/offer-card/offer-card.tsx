@@ -1,15 +1,15 @@
 import React from 'react';
 import {Offer} from '../../types/types';
-import {AppRoute, OfferType} from '../../const';
+import {OfferType} from '../../const';
 import {Link} from 'react-router-dom';
 import {calcPercent} from '../../helpers';
 
 type OfferCardProps = Offer & {
   offerListType: string;
-  setActiveOffer?: (value: number | null) => void;
+  onItemHover?: (value: number) => void;
 }
 
-function OfferCard ({previewImage, isFavorite, isPremium, price, title, rating, type, offerListType, setActiveOffer, ...props}  : OfferCardProps): JSX.Element {
+function OfferCard ({id, previewImage, isFavorite, isPremium, price, title, rating, type, offerListType, onItemHover, ...props}  : OfferCardProps): JSX.Element {
   const favButtonClasses = isFavorite ?
     'place-card__bookmark-button place-card__bookmark-button--active button' :
     'place-card__bookmark-button button';
@@ -25,20 +25,20 @@ function OfferCard ({previewImage, isFavorite, isPremium, price, title, rating, 
     `${offerListType}__card-info place-card__info` :
     'place-card__info';
 
-  const handleMouseOver = (id: number) => () => {
-    if (setActiveOffer) {
-      setActiveOffer(id);
+  const handleMouseOver = (i: number) => () => {
+    if (onItemHover) {
+      onItemHover(i);
     }
   };
 
   return (
-    <article className={placeCardClasses} onMouseOver={handleMouseOver(props.id)}>
+    <article className={placeCardClasses} onMouseOver={handleMouseOver(id)}>
       {isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
       </div>}
       <div className={imageWrapperClasses}>
-        <Link to={AppRoute.Room}>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt={title} />
         </Link>
       </div>

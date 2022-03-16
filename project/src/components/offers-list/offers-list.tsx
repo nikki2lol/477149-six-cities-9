@@ -6,10 +6,10 @@ import clsx from 'clsx';
 type OffersListProps = {
   offers: Offer[];
   offerListType?: string;
-  setActiveOffer?: (value: number | null) => void;
+  onItemHover?: (value: number) => void;
 }
 
-function OffersList ({offers, offerListType = OfferType.City, setActiveOffer}: OffersListProps) {
+function OffersList ({offers, offerListType = OfferType.City, onItemHover}: OffersListProps) {
   return (
     <div className={clsx(
       'places__list',
@@ -17,7 +17,7 @@ function OffersList ({offers, offerListType = OfferType.City, setActiveOffer}: O
       offerListType === OfferType.Nearest && 'near-places__list',
     )}
     >
-      {offers.map((offer : Offer, index : number)=> <OfferCard key={offer.id}  offerListType={offerListType} setActiveOffer={setActiveOffer} {...offer}/>)}
+      {offers.map((offer : Offer, index : number)=> <OfferCard key={offer.id}  offerListType={offerListType} onItemHover={onItemHover} {...offer}/>)}
     </div>
   );
 }
