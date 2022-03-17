@@ -31,15 +31,7 @@ function Sorting(): JSX.Element {
         </svg>
       </span>
       <ul className={clsx('places__options', 'places__options--custom', visible && 'places__options--opened')}>
-        {types.map((type) =>
-          (<li
-            key={type}
-            onClick={()=>typeClickHandler(type)}
-            className={clsx('places__option', currentType === type && 'places__option--active')}
-            tabIndex={0}
-          >
-            {type}
-          </li>),
+        {types.map((type) => <li key={type} onClick={()=>typeClickHandler(type)} className={clsx('places__option', currentType === type && 'places__option--active')} tabIndex={0}>{type}</li>,
         )}
       </ul>
     </form>
