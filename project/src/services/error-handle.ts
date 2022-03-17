@@ -16,10 +16,10 @@ export const errorHandle = (error: ErrorType): void => {
         toast.info(response.data.error);
         break;
       case HTTP_CODE.UNAUTHORIZED:
-        toast.info(response.data.error);
+        toast.warning(response.data.error);
         break;
       case HTTP_CODE.NOT_FOUND:
-        toast.info(response.data.error);
+        toast.error(response.data.error);
         break;
     }
   }

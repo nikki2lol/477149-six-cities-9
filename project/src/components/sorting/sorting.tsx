@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { SortingType } from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {changeSorting} from "../../store/action";
+import {changeSorting} from '../../store/action';
+import clsx from 'clsx';
 
 function Sorting(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -11,6 +12,11 @@ function Sorting(): JSX.Element {
   const [ visible, setVisible ] = useState(false);
   const toggle = () => setVisible(!visible);
   const changeSortingType = (sortingType: string) => dispatch(changeSorting(sortingType));
+
+  const typeClickHandler = (currentSortType : string) => {
+    changeSortingType(currentSortType);
+    toggle();
+  };
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -24,14 +30,17 @@ function Sorting(): JSX.Element {
           <use xlinkHref="#icon-arrow-select"/>
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${visible&&'places__options--opened'}`}>
+      <ul className={clsx('places__options', 'places__options--custom', visible && 'places__options--opened')}>
         {types.map((type) =>
-          <li
-            key={type} onClick={()=>{changeSortingType(type); toggle();}}
-            className={`places__option ${currentType===type&&'places__option--active'}`}
+          (<li
+            key={type}
+            onClick={()=>typeClickHandler(type)}
+            className={clsx('places__option', currentType === type && 'places__option--active')}
             tabIndex={0}
-          >{type}
-          </li>)}
+          >
+            {type}
+          </li>),
+        )}
       </ul>
     </form>
   );}
