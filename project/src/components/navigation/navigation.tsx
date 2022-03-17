@@ -1,20 +1,13 @@
-import {useLayoutEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getUserAction, logoutAction } from '../../store/api-action';
+import { logoutAction } from '../../store/api-action';
 
 function Navigation(): JSX.Element {
   const dispatch = useAppDispatch();
+  const {authorizationStatus, user} = useAppSelector((state) => state);
 
-  useLayoutEffect(() => {
-    dispatch(getUserAction());
-  }, [dispatch]);
-
-  const currentAuthorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const user = useAppSelector((state) => state.user);
-
-  if (currentAuthorizationStatus !== AuthorizationStatus.Auth) {
+  if (authorizationStatus !== AuthorizationStatus.Auth) {
     return (
       <nav className="header__nav">
         <ul className="header__nav-list">

@@ -1,4 +1,4 @@
-import React, {FormEvent, useRef} from 'react';
+import React, {FormEvent, useEffect, useRef} from 'react';
 import Header from '../../components/header/header';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-action';
@@ -12,9 +12,11 @@ function Login () {
   const dispatch = useAppDispatch();
   const currentAuthorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
-  if (currentAuthorizationStatus === AuthorizationStatus.Auth){
-    store.dispatch(redirectToRoute(AppRoute.Main));
-  }
+  useEffect(() => {
+    if (currentAuthorizationStatus === AuthorizationStatus.Auth){
+      store.dispatch(redirectToRoute(AppRoute.Main));
+    }
+  }, [currentAuthorizationStatus]);
 
   const handleSubmit = (evt: FormEvent)=>{
     evt.preventDefault();
