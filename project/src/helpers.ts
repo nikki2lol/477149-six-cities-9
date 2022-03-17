@@ -1,5 +1,5 @@
 import {RATING_STEP, SortingType} from './const';
-import {Offers} from "./types/types";
+import {Offers} from './types/types';
 
 export const calcPercent = (rating : number) => `${RATING_STEP * rating}%`;
 
@@ -16,7 +16,3 @@ export const sortOffers = (offers: Offers, city: string, type: string ) => {
       return filteredOffers;
   }
 };
-
-export const getCityCentre = (offers : Offers)=>{
-
-}

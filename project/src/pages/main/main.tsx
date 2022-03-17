@@ -22,7 +22,7 @@ function Main ({offers} : MainProps): JSX.Element {
     currentPoint ? dispatch(getOfferId(hoveredId)) : dispatch(resetOfferId());
   };
 
-  const isOffersArrayEmpty = offers.length < 0;
+  const isOffersArrayEmpty = offers.length <= 0;
 
   return (
     <div className="page page--gray page--main">
