@@ -24,11 +24,11 @@ const currentCustomIcon = new Icon({
 });
 
 function Map({offers, currentId}: MapProps): JSX.Element {
-  const selectedPin = useAppSelector((state) => state.offerId);
+  const selectedPin = useAppSelector(({OFFER}) => OFFER.offerId );
   const mapRef = useRef(null);
-  const cityCenter = offers[0].city;
-  const {location: {latitude: lat, longitude: lng, zoom}} = cityCenter;
-  const map = useMap(mapRef, cityCenter);
+  const {activeCity} = useAppSelector(({DATA})=> DATA );
+  const {location: {latitude: lat, longitude: lng, zoom}} = activeCity;
+  const map = useMap(mapRef, activeCity);
 
   useEffect(() => {
     if (map) {

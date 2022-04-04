@@ -1,26 +1,18 @@
 import React from 'react';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {setCity} from '../../store/action';
+import {useAppSelector} from '../../hooks';
 import {CITIES} from '../../const';
-import clsx from 'clsx';
+import CitiesItem from '../cities-item/cities-item';
 
 function Cities () {
-  const { activeCity } = useAppSelector((state) => state);
-  const dispatch = useAppDispatch();
-
-  function handleClick(cityName: string) {
-    dispatch(setCity(cityName));
-  }
+  const activeCity = useAppSelector(({ DATA }) => DATA.activeCity);
 
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {CITIES.map((cityName) => (
-          <li key={cityName} className="locations__item" onClick={()=>handleClick(cityName)}>
-            <a className={clsx('locations__item-link', 'tabs__item', cityName === activeCity && 'tabs__item--active')} href={`#${cityName}`}>
-              <span>{cityName}</span>
-            </a>
-          </li>))}
+        {CITIES.map((item, id) => {
+          const cityKeyValue = `${id}: ${item.name}`;
+          return <CitiesItem city={item} key={cityKeyValue} activeCity={activeCity} />;
+        })}
       </ul>
     </section>
   );

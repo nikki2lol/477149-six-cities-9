@@ -10,13 +10,13 @@ function Login () {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
-  const currentAuthorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
 
   useEffect(() => {
-    if (currentAuthorizationStatus === AuthorizationStatus.Auth){
+    if (authorizationStatus === AuthorizationStatus.Auth){
       store.dispatch(redirectToRoute(AppRoute.Main));
     }
-  }, [currentAuthorizationStatus]);
+  }, [authorizationStatus]);
 
   const handleSubmit = (evt: FormEvent)=>{
     evt.preventDefault();

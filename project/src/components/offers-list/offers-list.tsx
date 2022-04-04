@@ -6,7 +6,7 @@ import clsx from 'clsx';
 type OffersListProps = {
   offers: Offer[];
   offerListType?: string;
-  onItemHover?: (value: number) => void;
+  onItemHover?: (Offer: number) => void;
 }
 
 function OffersList ({offers, offerListType = OfferType.City, onItemHover}: OffersListProps) {
@@ -17,7 +17,7 @@ function OffersList ({offers, offerListType = OfferType.City, onItemHover}: Offe
       offerListType === OfferType.Nearest && 'near-places__list',
     )}
     >
-      {offers.map((offer : Offer, index : number)=> <OfferCard key={offer.id}  offerListType={offerListType} onItemHover={onItemHover} {...offer}/>)}
+      {offers.map((offer : Offer, index : number)=> <OfferCard key={offer.id} offerListType={offerListType} onItemHover={onItemHover} {...offer}/>)}
     </div>
   );
 }

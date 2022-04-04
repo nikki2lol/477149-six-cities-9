@@ -1,29 +1,36 @@
 import Map from '../../components/map/map';
-import { useAppSelector } from '../../hooks';
-import { Offers } from '../../types/types';
+import {useAppSelector} from '../../hooks';
 import OffersList from '../offers-list/offers-list';
 import React from 'react';
 import Sorting from '../sorting/sorting';
+import LoadingScreen from '../loading-screen/loading-scree';
+import {sortOffers} from '../../helpers';
 
 type MainWithContentProps = {
   onItemHover: (value: number) => void,
-  offers: Offers
 }
 
-function MainWithContent({onItemHover, offers}: MainWithContentProps): JSX.Element {
-  const cityName = useAppSelector((state) => state.activeCity);
+function MainWithContent({onItemHover}: MainWithContentProps): JSX.Element {
+  const {offers, activeCity, isOffersLoaded, sortType} = useAppSelector(({DATA}) => DATA);
+  const sortedOffers = sortOffers(offers, activeCity, sortType);
+
+  if (!isOffersLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <div className="cities__places-container container">
       <section className="cities__places places">
         <h2 className="visually-hidden">Places</h2>
-        <b className="places__found">{offers.length} places to stay in {cityName}</b>
+        <b className="places__found">{sortedOffers.length} places to stay in {activeCity.name}</b>
         <Sorting/>
-        <OffersList onItemHover={onItemHover}  offers={offers}/>
+        <OffersList onItemHover={onItemHover} offers={sortedOffers}/>
       </section>
       <div className="cities__right-section">
         <section className="cities__map map">
-          <Map offers={offers}/>
+          <Map offers={sortedOffers}/>
         </section>
       </div>
     </div>
