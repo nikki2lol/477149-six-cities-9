@@ -57,7 +57,6 @@ export const dataProcess = createSlice({
 export const {
   loadOffers,
   setCurrentOffers,
-  sortCurrentOffers,
   changeCity,
   changeSortType,
   loadFavoriteOffers,

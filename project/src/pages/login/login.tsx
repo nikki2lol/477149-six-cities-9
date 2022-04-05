@@ -7,16 +7,23 @@ import {store} from '../../store';
 import {redirectToRoute} from '../../store/action';
 import {Link} from 'react-router-dom';
 import {changeCity} from '../../store/data-process/data-process';
+import {getRandomInteger} from '../../helpers';
 
 function Login () {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
   const [isValidPassword, setIsValidPassword] = useState(false);
+  const [randomCity, setRandomCity] = useState(CITIES[0]);
   const checkValidity = (password: string) => /^[0-9]+[A-Z]+|[A-Z]+[0-9]+$/i.test(password) ? setIsValidPassword(true) : setIsValidPassword(false);
   const {authorizationStatus} = useAppSelector(({USER}) => USER);
-  const randomCity = CITIES[Math.floor(Math.random()*CITIES.length)];
-  const handleCityChange = useCallback(()=>store.dispatch(changeCity(randomCity)),[randomCity]);
+
+  const handleCityChange = useCallback(()=> store.dispatch(changeCity(randomCity)), [randomCity]);
+
+  useEffect(()=>{
+    setRandomCity(CITIES[getRandomInteger(0, CITIES.length - 1)]);
+    handleCityChange();
+  },[]);
 
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.Auth){
@@ -33,6 +40,7 @@ function Login () {
         password: passwordRef.current.value,
       }));
     }
+    handleCityChange();
   };
 
   const handlePasswordChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -88,7 +96,7 @@ function Login () {
                 className="locations__item-link"
                 onClick={handleCityChange}
               >
-                <span>{randomCity}</span>
+                <span>{randomCity.name}</span>
               </Link>
             </div>
           </section>
