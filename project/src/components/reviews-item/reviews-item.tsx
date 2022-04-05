@@ -2,7 +2,9 @@ import React from 'react';
 import {Review} from '../../types/types';
 import {calcPercent} from '../../helpers';
 
-function ReviewsItem ({comment, date, id, rating, user, ...props} : Review) {
+function ReviewsItem ({comment, date, rating, user} : Review) {
+  const month = new Date(date).toLocaleString('en-us', { month: 'short' });
+  const year = new Date(date).getFullYear();
 
   return (
     <li className="reviews__item">
@@ -22,7 +24,7 @@ function ReviewsItem ({comment, date, id, rating, user, ...props} : Review) {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={date}>{date}</time>
+        <time className="reviews__time" dateTime={date}>{month} {year}</time>
       </div>
     </li>
   );

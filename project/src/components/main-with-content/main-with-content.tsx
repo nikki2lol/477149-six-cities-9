@@ -26,7 +26,7 @@ function MainWithContent({onItemHover}: MainWithContentProps): JSX.Element {
         <h2 className="visually-hidden">Places</h2>
         <b className="places__found">{sortedOffers.length} places to stay in {activeCity.name}</b>
         <Sorting/>
-        <OffersList onItemHover={onItemHover} offers={sortedOffers}/>
+        <OffersList offers={sortedOffers}/>
       </section>
       <div className="cities__right-section">
         <section className="cities__map map">

@@ -1,4 +1,4 @@
-import React, {MouseEvent} from 'react';
+import React, {MouseEvent, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import ReviewsList from '../reviews-list/reviews-list';
 import FormReviews from '../form-reviews/form-reviews';
@@ -23,16 +23,18 @@ function RoomMain () {
   const {offers} = useAppSelector(({DATA}) => DATA);
   const {authorizationStatus} = useAppSelector(({ USER }) => USER);
   const {room, reviews, offersNearby} = useAppSelector(({OFFER})=> OFFER);
+  const offersForMap = [...offersNearby, room];
 
-  const { id, isPremium, isFavorite, price, rating,
-    title, type, images, bedrooms, maxAdults,
-    goods, host, description } = room;
+  const { id, isPremium, isFavorite, price, rating, title, type, images, bedrooms, maxAdults, goods, host, description } = room;
 
-  if (!offers.find((offer) => offer.id === Number(params.id))) {
-    navigate(AppRoute.NotFound);
-  } else if (room.id !== Number(params.id)) {
-    dispatchOfferData(Number(params.id));
-  }
+  useEffect(() => {
+    if (offers && offers.length && !offers.find((offer) => offer.id === Number(params.id))) {
+      navigate(AppRoute.NotFound);
+    } else if (room.id !== Number(params.id)) {
+      dispatchOfferData(Number(params.id));
+    }
+    window.scrollTo(0, 0);
+  }, [params.id]);
 
   const onFavClick = (e : MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -127,12 +129,12 @@ function RoomMain () {
                 <span className="reviews__amount">{reviews.length}</span>
               </h2>
               <ReviewsList reviews={reviews} />
-              {authorizationStatus === AuthorizationStatus.Auth && <FormReviews />}
+              {authorizationStatus === AuthorizationStatus.Auth && <FormReviews/>}
             </section>
           </div>
         </div>
         <section className="property__map map">
-          <Map offers={offers}/>
+          <Map offers={offersForMap} isNearbyOffer={Number(params.id)} />
         </section>
       </section>
       <div className="container">

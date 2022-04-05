@@ -1,13 +1,12 @@
-import React, {FormEvent, useState} from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {NewReview} from '../../types/types';
 import {addReviewAction} from '../../store/api-action';
 
 function FormReviews () {
   const dispatch = useAppDispatch();
+  const {room} = useAppSelector(({OFFER})=> OFFER);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
-
-  const { room } = useAppSelector(({ OFFER }) => OFFER);
 
   const [formData, setFormData] = useState<NewReview>({
     roomId: room.id,
@@ -18,7 +17,6 @@ function FormReviews () {
   const onChangeHandler = (evt : {target :  { name: string, value: string }}) => {
     const name = evt.target.name;
     const value = evt.target.value;
-    // console.log(evt, value);
     setFormData({
       ...formData,
       [name]: name === 'rating' ? Number(value) : value,
@@ -37,13 +35,17 @@ function FormReviews () {
 
     if (rating !== 0 && comment !== '' && roomId !== null) {
       onSubmit({
-        roomId,
+        roomId: room.id,
         comment,
         rating,
       });
     }
     setFormData({ roomId: null,  comment: '', rating: 0 });
   };
+
+  useEffect(()=>{
+    formData.rating === 0 || formData.comment.length <= 50 || formData.roomId === null ? setIsButtonDisabled(true) : setIsButtonDisabled(false);
+  }, [formData]);
 
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -56,6 +58,7 @@ function FormReviews () {
           id="5-stars"
           type="radio"
           onChange={onChangeHandler}
+          checked={formData.rating === 5}
         />
         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
           <svg className="form__star-image" width="37" height="33">
@@ -70,6 +73,7 @@ function FormReviews () {
           id="4-stars"
           type="radio"
           onChange={onChangeHandler}
+          checked={formData.rating === 4}
         />
         <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
           <svg className="form__star-image" width="37" height="33">
@@ -84,6 +88,7 @@ function FormReviews () {
           id="3-stars"
           type="radio"
           onChange={onChangeHandler}
+          checked={formData.rating === 3}
         />
         <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
           <svg className="form__star-image" width="37" height="33">
@@ -98,6 +103,7 @@ function FormReviews () {
           id="2-stars"
           type="radio"
           onChange={onChangeHandler}
+          checked={formData.rating === 2}
         />
         <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
           <svg className="form__star-image" width="37" height="33">
@@ -112,6 +118,7 @@ function FormReviews () {
           id="1-star"
           type="radio"
           onChange={onChangeHandler}
+          checked={formData.rating === 1}
         />
         <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
           <svg className="form__star-image" width="37" height="33">
@@ -122,7 +129,7 @@ function FormReviews () {
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
-        name="review"
+        name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={onChangeHandler}
         value={formData.comment}
