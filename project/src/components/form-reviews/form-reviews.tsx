@@ -3,10 +3,16 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {NewReview} from '../../types/types';
 import {addReviewAction} from '../../store/api-action';
 
+const TEXTAREA_LENGTH = {
+  MIN_LENGTH: 50,
+  MAX_LENGTH: 300,
+};
+
 function FormReviews () {
   const dispatch = useAppDispatch();
   const {room} = useAppSelector(({OFFER})=> OFFER);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
+  const [isCommentLengthValid, setIsCommentLengthValid] = useState(false);
 
   const [formData, setFormData] = useState<NewReview>({
     roomId: room.id,
@@ -21,7 +27,7 @@ function FormReviews () {
       ...formData,
       [name]: name === 'rating' ? Number(value) : value,
     });
-    setIsButtonDisabled(!(formData.comment.length >= 50 && formData.rating !== 0));
+    setIsButtonDisabled(!(isCommentLengthValid && formData.rating !== 0));
   };
 
   const onSubmit = (newReview: NewReview) => {
@@ -44,7 +50,8 @@ function FormReviews () {
   };
 
   useEffect(()=>{
-    formData.rating === 0 || formData.comment.length <= 50 || formData.roomId === null ? setIsButtonDisabled(true) : setIsButtonDisabled(false);
+    setIsCommentLengthValid(formData.comment.length >= TEXTAREA_LENGTH.MIN_LENGTH && formData.comment.length < TEXTAREA_LENGTH.MAX_LENGTH);
+    formData.rating === 0 || !isCommentLengthValid || formData.roomId === null ? setIsButtonDisabled(true) : setIsButtonDisabled(false);
   }, [formData]);
 
   return (

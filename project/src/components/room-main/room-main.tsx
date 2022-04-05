@@ -27,6 +27,9 @@ function RoomMain () {
 
   const { id, isPremium, isFavorite, price, rating, title, type, images, bedrooms, maxAdults, goods, host, description } = room;
 
+  const slicesImages = images.slice(0, 6);
+  const sortReviews = reviews.slice().sort((a, b)=> new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 10);
+
   useEffect(() => {
     if (offers && offers.length && !offers.find((offer) => offer.id === Number(params.id))) {
       navigate(AppRoute.NotFound);
@@ -50,7 +53,7 @@ function RoomMain () {
     <>
       <section className="property">
         <div className="property__gallery-container container">
-          <RoomGallery images={images}/>
+          <RoomGallery images={slicesImages}/>
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
@@ -126,9 +129,9 @@ function RoomMain () {
             </div>
             <section className="property__reviews reviews">
               <h2 className="reviews__title">Reviews &middot;
-                <span className="reviews__amount">{reviews.length}</span>
+                <span className="reviews__amount">{sortReviews.length}</span>
               </h2>
-              <ReviewsList reviews={reviews} />
+              <ReviewsList reviews={sortReviews} />
               {authorizationStatus === AuthorizationStatus.Auth && <FormReviews/>}
             </section>
           </div>
