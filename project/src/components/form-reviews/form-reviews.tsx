@@ -46,7 +46,7 @@ function FormReviews () {
         rating,
       });
     }
-    setFormData({ roomId: null,  comment: '', rating: 0 });
+    setFormData({ roomId: room.id,  comment: '', rating: 0 });
   };
 
   useEffect(()=>{
