@@ -1,60 +1,25 @@
-import React from 'react';
+import { useEffect } from 'react';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {fetchFavoritesAction} from '../../store/api-action';
 import Header from '../../components/header/header';
-import {Offers} from '../../types/types';
-import OffersList from '../../components/offers-list/offers-list';
-import {OfferType} from '../../const';
+import FavoriteScreenEmpty from '../../components/favorite-screen-empty/favorite-screen-empty';
+import FavoriteScreen from '../../components/favorite-screen/favorite-screen';
 
-type FavProps = {
-  offers: Offers
-}
 
-function Favorites ({offers} : FavProps){
+function Favorites(): JSX.Element {
+  const {favorites} = useAppSelector(({ DATA }) => DATA);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavoritesAction());
+  }, []);
 
   return (
     <div className="page">
-
-      <Header/>
-
-      <main className="page__main page__main--favorites">
-        <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  <OffersList offers={offers} offerListType={OfferType.Fav}/>
-                </div>
-              </li>
-
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/">
-                      <span>Cologne</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  <OffersList offers={offers} offerListType={OfferType.Fav}/>
-                </div>
-              </li>
-            </ul>
-          </section>
-        </div>
-      </main>
-
-      <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img className="footer__logo" src="/img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-        </a>
-      </footer>
+      <Header />
+      {favorites.length === 0 ?
+        <FavoriteScreenEmpty /> :
+        <FavoriteScreen />}
     </div>
   );
 }

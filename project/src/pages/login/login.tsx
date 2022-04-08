@@ -1,22 +1,35 @@
-import React, {FormEvent, useEffect, useRef} from 'react';
+import React, {ChangeEvent, FormEvent, useCallback, useEffect, useRef, useState} from 'react';
 import Header from '../../components/header/header';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loginAction} from '../../store/api-action';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute, AuthorizationStatus, CITIES} from '../../const';
 import {store} from '../../store';
 import {redirectToRoute} from '../../store/action';
+import {Link} from 'react-router-dom';
+import {changeCity} from '../../store/data-process/data-process';
+import {getRandomInteger} from '../../helpers';
 
 function Login () {
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
-  const currentAuthorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const [isValidPassword, setIsValidPassword] = useState(false);
+  const [randomCity, setRandomCity] = useState(CITIES[0]);
+  const checkValidity = (password: string) => /^[0-9]+[A-Z]+|[A-Z]+[0-9]+$/i.test(password) ? setIsValidPassword(true) : setIsValidPassword(false);
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
+
+  const handleCityChange = useCallback(()=> store.dispatch(changeCity(randomCity)), [randomCity]);
+
+  useEffect(()=>{
+    setRandomCity(CITIES[getRandomInteger(0, CITIES.length - 1)]);
+    handleCityChange();
+  },[]);
 
   useEffect(() => {
-    if (currentAuthorizationStatus === AuthorizationStatus.Auth){
+    if (authorizationStatus === AuthorizationStatus.Auth){
       store.dispatch(redirectToRoute(AppRoute.Main));
     }
-  }, [currentAuthorizationStatus]);
+  }, [authorizationStatus]);
 
   const handleSubmit = (evt: FormEvent)=>{
     evt.preventDefault();
@@ -27,6 +40,12 @@ function Login () {
         password: passwordRef.current.value,
       }));
     }
+    handleCityChange();
+  };
+
+  const handlePasswordChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    evt.preventDefault();
+    passwordRef.current !== null && checkValidity(passwordRef.current.value);
   };
 
   return (
@@ -53,6 +72,7 @@ function Login () {
                 <label className="visually-hidden">Password</label>
                 <input
                   ref={passwordRef}
+                  onChange={handlePasswordChange}
                   className="login__input form__input"
                   type="password"
                   name="password"
@@ -63,6 +83,7 @@ function Login () {
               <button
                 className="login__submit form__submit button"
                 type="submit"
+                disabled={!isValidPassword}
               >
                 Sign in
               </button>
@@ -70,9 +91,13 @@ function Login () {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="/">
-                <span>Amsterdam</span>
-              </a>
+              <Link
+                to={'/'}
+                className="locations__item-link"
+                onClick={handleCityChange}
+              >
+                <span>{randomCity.name}</span>
+              </Link>
             </div>
           </section>
         </div>

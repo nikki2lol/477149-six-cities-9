@@ -2,7 +2,9 @@ import React from 'react';
 import {Review} from '../../types/types';
 import {calcPercent} from '../../helpers';
 
-function ReviewsItem ({comment, date, id, rating, user, ...props} : Review) {
+function ReviewsItem ({comment, date, rating, user} : Review) {
+  const month = new Date(date).toLocaleString('en-us', { month: 'short' });
+  const year = new Date(date).getFullYear();
 
   return (
     <li className="reviews__item">
@@ -20,10 +22,9 @@ function ReviewsItem ({comment, date, id, rating, user, ...props} : Review) {
           </div>
         </div>
         <p className="reviews__text">
-          A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building
-          is green and from 18th century.
+          {comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
+        <time className="reviews__time" dateTime={date}>{month} {year}</time>
       </div>
     </li>
   );

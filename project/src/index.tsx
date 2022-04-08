@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import App from './components/app/app';
 import {Provider} from 'react-redux';
 import {store} from './store';
-import {checkAuthAction, fetchOfferAction} from './store/api-action';
+import {checkAuthAction, fetchOffersAction} from './store/api-action';
 import 'react-toastify/dist/ReactToastify.css';
 
-store.dispatch(fetchOfferAction());
+store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
 
 ReactDOM.render(

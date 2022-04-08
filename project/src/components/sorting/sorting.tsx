@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { SortingType } from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {changeSorting} from '../../store/action';
 import clsx from 'clsx';
+import {changeSortType} from '../../store/data-process/data-process';
 
 function Sorting(): JSX.Element {
   const dispatch = useAppDispatch();
-  const currentType = useAppSelector((state) => state.sortingType);
+  const currentType = useAppSelector(({DATA}) => DATA.sortType);
   const types = Object.values(SortingType);
 
   const [ visible, setVisible ] = useState(false);
   const toggle = () => setVisible(!visible);
-  const changeSortingType = (sortingType: string) => dispatch(changeSorting(sortingType));
+  const changeSortingType = (sortingType: string) => dispatch(changeSortType(sortingType));
 
   const typeClickHandler = (currentSortType : string) => {
     changeSortingType(currentSortType);

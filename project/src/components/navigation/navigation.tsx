@@ -5,7 +5,7 @@ import { logoutAction } from '../../store/api-action';
 
 function Navigation(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {authorizationStatus, user} = useAppSelector((state) => state);
+  const {authorizationStatus, user} = useAppSelector(({USER}) => USER);
 
   if (authorizationStatus !== AuthorizationStatus.Auth) {
     return (
