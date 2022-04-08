@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import Footer from "../../components/footer/footer";
+import Footer from '../../components/footer/footer';
 
 function FavoritesEmpty () {
   return (
