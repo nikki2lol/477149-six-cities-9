@@ -13,7 +13,7 @@ export type UserProcess = {
 };
 
 export type DataProcess = {
-  activeCity: City,
+  activeCity: string,
   isOffersLoaded: boolean,
   offers: Offers,
   currentOffers: Offers,

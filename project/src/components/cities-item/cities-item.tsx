@@ -1,12 +1,11 @@
 import React from 'react';
 import { useAppDispatch } from '../../hooks';
 import {changeCity} from '../../store/data-process/data-process';
-import {City} from '../../types/types';
 import clsx from 'clsx';
 
 type LocationItemProps = {
-  activeCity: City;
-  city: City;
+  activeCity: string;
+  city: string;
 };
 
 function CitiesItem({city, activeCity}: LocationItemProps) {
@@ -15,14 +14,14 @@ function CitiesItem({city, activeCity}: LocationItemProps) {
   return (
     <li className="locations__item">
       <a
-        className={clsx('locations__item-link', 'tabs__item', city.name === activeCity.name && 'tabs__item--active')}
+        className={clsx('locations__item-link', 'tabs__item', city === activeCity && 'tabs__item--active')}
         href={`${city}`}
         onClick={(e) => {
           e.preventDefault();
           dispatch(changeCity(city));
         }}
       >
-        <span>{city.name}</span>
+        <span>{city}</span>
       </a>
     </li>
   );

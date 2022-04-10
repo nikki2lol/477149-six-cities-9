@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import {City, Offers} from '../../types/types';
+import {Offers} from '../../types/types';
 import {AppRoute, OfferType} from '../../const';
 import {changeCity} from '../../store/data-process/data-process';
 import OffersList from '../offers-list/offers-list';
 
 type FavoriteItemProps = {
-  city: City;
+  city: string;
   favOffers: Offers;
 };
 
@@ -27,7 +27,7 @@ function FavoriteItem({city, favOffers}: FavoriteItemProps) {
             to={AppRoute.Main}
             onClick={changeCityHandler}
           >
-            <span>{city.name}</span>
+            <span>{city}</span>
           </Link>
         </div>
       </div>

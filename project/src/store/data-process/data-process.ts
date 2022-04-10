@@ -1,10 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace, SortingType, CITIES} from '../../const';
 import { DataProcess } from '../../types/state';
-import {filterOffers, sortOffers} from '../../helpers';
+import {filterOffers} from '../../helpers';
 
 const initialState: DataProcess = {
-  activeCity: CITIES[0],
+  activeCity: CITIES.Paris,
   isOffersLoaded: false,
   offers: [],
   currentOffers: [],
@@ -24,11 +24,8 @@ export const dataProcess = createSlice({
     setCurrentOffers: (state) => {
       state.currentOffers = filterOffers(state.offers, state.activeCity);
     },
-    sortCurrentOffers: (state) => {
-      state.currentOffers = sortOffers(state.offers, state.activeCity, state.sortType);
-    },
     changeCity: (state, action) => {
-      if (state.activeCity.name !== action.payload.name) {
+      if (state.activeCity !== action.payload.name) {
         state.activeCity = action.payload;
       }
     },

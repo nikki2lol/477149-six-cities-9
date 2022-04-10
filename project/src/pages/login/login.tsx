@@ -14,14 +14,14 @@ function Login () {
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
   const [isValidPassword, setIsValidPassword] = useState(false);
-  const [randomCity, setRandomCity] = useState(CITIES[0]);
+  const cities = Object.values(CITIES);
+  const [randomCity, setRandomCity] = useState(cities[0]);
   const checkValidity = (password: string) => /^[0-9]+[A-Z]+|[A-Z]+[0-9]+$/i.test(password) ? setIsValidPassword(true) : setIsValidPassword(false);
   const {authorizationStatus} = useAppSelector(({USER}) => USER);
-
   const handleCityChange = useCallback(()=> store.dispatch(changeCity(randomCity)), [randomCity]);
 
   useEffect(()=>{
-    setRandomCity(CITIES[getRandomInteger(0, CITIES.length - 1)]);
+    setRandomCity(cities[getRandomInteger(0, cities.length - 1)]);
     handleCityChange();
   },[]);
 
@@ -96,7 +96,7 @@ function Login () {
                 className="locations__item-link"
                 onClick={handleCityChange}
               >
-                <span>{randomCity.name}</span>
+                <span>{randomCity}</span>
               </Link>
             </div>
           </section>

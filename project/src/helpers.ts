@@ -1,11 +1,11 @@
 import {RATING_STEP, SortingType} from './const';
-import {City, Offers} from './types/types';
+import {Offers} from './types/types';
 
 export const calcPercent = (rating : number) => `${RATING_STEP * rating}%`;
 
-export const filterOffers = (offers: Offers, city: City) : Offers => offers.filter((offer) => offer.city.name === city.name);
+export const filterOffers = (offers: Offers, city: string) : Offers => offers.filter((offer) => offer.city.name === city);
 
-export const sortOffers = (offers: Offers, city: City, type: string ) => {
+export const sortOffers = (offers: Offers, city: string, type: string ) => {
   const filteredOffers = filterOffers(offers, city);
   switch (type) {
     case SortingType.PRICE_TO_HIGH:

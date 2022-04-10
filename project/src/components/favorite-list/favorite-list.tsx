@@ -9,11 +9,11 @@ function FavoriteList(): JSX.Element {
 
   return (
     <ul className="favorites__list">
-      {CITIES.map((city) => {
+      {Object.values(CITIES).map((city) => {
         const favOffers: Offers = filterOffers(favorites, city);
         return favOffers.length !== 0 &&
           <FavoriteItem
-            key={city.name}
+            key={city}
             city={city}
             favOffers={favOffers}
           />;

@@ -27,9 +27,9 @@ const currentCustomIcon = new Icon({
 function Map({offers, isNearbyOffer}: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const {offerId} = useAppSelector(({OFFER}) => OFFER );
-  const {activeCity} = useAppSelector(({DATA})=> DATA );
-  const {location: {latitude: lat, longitude: lng, zoom}} = activeCity;
-  const map = useMap(mapRef, activeCity);
+  const cityCenter = offers[0].city;
+  const {location: {latitude: lat, longitude: lng, zoom}} = cityCenter;
+  const map = useMap(mapRef, cityCenter);
   const markerGroup = useRef(L.layerGroup());
   const idForMap = isNearbyOffer ? isNearbyOffer : offerId;
 
