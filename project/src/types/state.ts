@@ -1,6 +1,6 @@
 import {store} from '../store';
 import {AuthorizationStatus} from '../const';
-import {City, FavoriteOffers, NearbyOffers, Offer, OfferReviews, Offers} from './types';
+import {FavoriteOffers, NearbyOffers, Offer, OfferReviews, Offers} from './types';
 import {UserData} from './user';
 
 export type State = ReturnType<typeof store.getState>;
